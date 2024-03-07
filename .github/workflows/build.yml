@@ -1,4 +1,6 @@
-name: Convert Notebooks
+- name: Convert Notebooks
   run: |
     pip install nbconvert
-    jupyter nbconvert --to html your-notebook.ipynb
+    find . -name "*.ipynb" -exec jupyter nbconvert --to html {} \;
+
+

@@ -1,6 +1,27 @@
-- name: Convert Notebooks
-  run: |
-    pip install nbconvert
-    find . -name "*.ipynb" -exec jupyter nbconvert --to html {} \;
+name: Convert Jupyter Notebooks
 
+on:
+  push:
+    paths:
+      - '**.ipynb'
+
+jobs:
+  convert-notebooks:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install nbconvert
+      run: |
+        pip install nbconvert
+
+    - name: Convert Notebooks to HTML
+      run: |
+        find . -name "*.ipynb" -exec jupyter nbconvert --to html {} \;
 
